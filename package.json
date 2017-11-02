@@ -1,0 +1,27 @@
+{
+  "name": "ico-scraper",
+  "version": "1.0.0",
+  "description": "Scrape ICOs from listed websites",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jitinp/ico-scraper.git"
+  },
+  "keywords": [
+    "ICO",
+    "Blockchain"
+  ],
+  "author": "Jitin Pillai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jitinp/ico-scraper/issues"
+  },
+  "homepage": "https://github.com/jitinp/ico-scraper#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "mongoose": "^4.12.6"
+  }
+}
