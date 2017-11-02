@@ -2,7 +2,7 @@
   "name": "ico-scraper",
   "version": "1.0.0",
   "description": "Scrape ICOs from listed websites",
-  "main": "app.js",
+  "main": "scrape.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,6 +22,9 @@
   "homepage": "https://github.com/jitinp/ico-scraper#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "fs": "0.0.1-security",
+    "json-parser": "^1.1.5",
+    "minimist": "^1.2.0",
     "mongoose": "^4.12.6"
   }
 }

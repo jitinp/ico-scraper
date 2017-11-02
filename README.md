@@ -4,7 +4,7 @@ Scrape ICOs from listed websites
 ## Instructions to Run & Install
 1. Clone Repo
 2. npm install
-3. node app
+3. node scrape
 
 ## Authors
 1. Jitin Pillai
