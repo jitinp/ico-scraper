@@ -3,22 +3,15 @@ var argv = require('minimist')(process.argv.slice(2));
 
 module.exports = {
 
-	/*
-	 * Command line arguments
-	 * -h: Help
-	 * -n: number of results to be returned
-	 * -d: display results on screen
-	 * -s: save results to DB (default action)
-	 * -f: write results to file
-	 */
-	
+	// Refer HELP.md for lsit of Arguments
 	processArgs: function() {
 
 		var argActions = {
-						scrape: true, // determine if scraping or further actions required
+						scrape: true, // determine if scraping required. Decline for Help & Versions
 						display: false // maybe to just display results. To be decided later
 					};
 
+		// -h is Help
 		if(argv.h == true) {
 			// display contents from HELP.md
 			try {  
@@ -28,6 +21,12 @@ module.exports = {
 			} catch(e) {
 			    console.log('Error:', e.stack);
 			}
+		}
+
+		// -v is Version
+		if(argv.v) {
+			console.log('Version 0.0.1'); 
+			argActions.scrape = false;
 		}
 
 		if(argv.n) {
@@ -43,6 +42,5 @@ module.exports = {
 		}
 
 		return argActions;
-
 	}
 };

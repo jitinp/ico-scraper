@@ -25,6 +25,7 @@
     "fs": "0.0.1-security",
     "json-parser": "^1.1.5",
     "minimist": "^1.2.0",
-    "mongoose": "^4.12.6"
+    "mongoose": "^4.12.6",
+    "request": "^2.83.0"
   }
 }
