@@ -1,5 +1,5 @@
 var fs = require('fs');
-var argv = require('minimist')(process.argv.slice(2));
+var argv = require('minimist')(process.argv.slice(2)); // grab Command line args from Process
 
 module.exports = {
 
@@ -33,9 +33,7 @@ module.exports = {
 			console.log(cmdArgs.n + " results to be displayed on screen: \n");
 		}
 
-		if(argv.d) {
-			console.log("Show results on Screen");
-		}
+        argActions.display = argv.d;
 
 		if(argv.f) {
 			console.log("saving results to " + cmdArgs.f);
