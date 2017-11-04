@@ -22,10 +22,12 @@
   "homepage": "https://github.com/jitinp/ico-scraper#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "eval": "^0.1.2",
     "fs": "0.0.1-security",
     "json-parser": "^1.1.5",
     "minimist": "^1.2.0",
     "mongoose": "^4.12.6",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "safe-eval": "^0.3.0"
   }
 }

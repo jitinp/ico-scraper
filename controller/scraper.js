@@ -1,66 +1,72 @@
 var request = require('request');
 var cheerio = require('cheerio');
+var fs = require('fs');
 
 module.exports = {
-    
-    startScraping: function (isDisplayOnScreen, isStoreToDb = 'true', isWriteToFile = 'false') {
-    // Have URL and Element Tags defined as JSON rules in text file.
-    request('https://tokenmarket.net/blockchain/all-assets', function (error, response, html) {
-        if (!error && response.statusCode == 200) {
-            var $ = cheerio.load(html);
 
-            // For Token Market, start with Logo and then move down
-            $('td.col-ico-logo').each(function(i, element){
+    /*
+     * Call scraper - Scrape results from Listed Websites in Source File.
+	 * Load Website List and Scraping Elements from `source.json`
+	 * Anchor points and subsequent elements listed in `source.json`, parse and pass elements as JS eval object
+	 *
+	 * @isDisplayOnScreen - whether to display results on screen
+	 * @isStoreToDb - whether to write to DB
+	 * @isWriteToFile - whether to write to File
+	 */
+    startScraping: function (isDisplayOnScreen, isStoreToDb, isWriteToFile) {
 
-                // Logo URL
-                // .col-ico-log -> a -> img
-                // Pay attention to tag passed in attr(). Its different from 'src'
-                var logoElement = $(this);
-                var logoURL = logoElement.children().children().attr('data-cfsrc');
+        // Read JSON file for Scraping List
+        var lists = JSON.parse(fs.readFileSync('source.json', 'utf8'));
+        console.log(lists); // List of Website and Elements
 
-                // Status
-                // .col-asset-status -> span -> text()
-                var statusElement = logoElement.next();
-                var status = statusElement.children().text();
+        // fetch List of website
+        var sources = lists.sources;
 
-                // ICO Name
-                // .col-asset-name -> div -> a -> text()
-                var nameElement = statusElement.next();
-                var name = nameElement.children().children().text();
+        sources.forEach(function(item) {
 
-                // ICO Symbol
-                // .col-asset-symbol -> symbol
-                var symbolElement = nameElement.next();
-                var symbol = symbolElement.text();
+            // Have URL and Element Tags defined as JSON values in text file.
+            request(item.url, function (error, response, html) {
+                if (!error && response.statusCode == 200) {
+                    var $ = cheerio.load(html);
 
-                // ICO Description
-                // .col-asset-description -> description
-                var descriptionElement = symbolElement.next();
-                var description = descriptionElement.text();
+                    // Fetch List of Elements to be scraped
+                    var elements = item.elements;
 
-                // Our parsed meta data object
-                var metadata = {
-                    url: logoURL,
-                    name: name,
-                    status: status,
-                    symbol: symbol,
-                    description: description,
-                };
+                    // Fetch all elements associated with every Anchor element
+                    $(item.anchor).each(function(){
 
-                // Don't display results on screens if False
-                if(isDisplayOnScreen.toUpperCase() != 'FALSE')
-                    console.log(metadata);
+                        var logoURL = eval(elements.logoURLElement); // Logo URL
+                        var status = eval(elements.statusElement); // Status
+                        var name = eval(elements.nameElement); // ICO Name
+                        var symbol = eval(elements.symbolElement); // ICO Symbol
+                        var description = eval(elements.descriptionElement); // ICO Description
 
-                // Save Data to DB
-                if(isStoreToDb.toUpperCase() != 'FALSE')
-                    console.log('Store results in DB');
+                        var metadata = {
+                            url: logoURL.trim(), // remove white spaces and escape chars
+                            name: name.trim(),
+                            status: status.trim(),
+                            symbol: symbol.trim(),
+                            description: description.trim(),
+                        };
 
-                // Write Data to File
-                if(isWriteToFile.toUpperCase() == 'TRUE')
-                    console.log('Writing data to File');
+                        // Turn off display on Terminal if False
+                        if(isDisplayOnScreen != 'false')
+                            console.log(metadata);
 
+                        // Save Data to DB
+
+                        if(isStoreToDb == 'false')
+                            console.log('Don\'t store results in DB');
+
+                        // Write Data to File
+                        // to be completed..
+                        if(isWriteToFile == 'true')
+                            console.log('Writing data to File');
+
+                    });
+                }
             });
-        }
-    });
+        });
+        return;
     }
 }

@@ -8,7 +8,9 @@ module.exports = {
 
 		var argActions = {
 						scrape: true, // determine if scraping required. Decline for Help & Versions
-						display: false // maybe to just display results. To be decided later
+						display: true, // maybe to just display results. To be decided later
+						writeToDb: true,
+						writeToFile: false,
 					};
 
 		// -h is Help
@@ -30,15 +32,16 @@ module.exports = {
 		}
 
 		if(argv.n) {
-			console.log(cmdArgs.n + " results to be displayed on screen: \n");
+			console.log(argv.n + " results to be displayed on screen: \n");
 		}
 
-        argActions.display = argv.d;
+        argActions.display = argv.display;
+		argActions.writeToDb = argv.db;
+		argActions.writeToFile = argv.file;
 
 		if(argv.f) {
-			console.log("saving results to " + cmdArgs.f);
+			console.log("saving results to " + argv.f);
 		}
-
 		return argActions;
 	}
 };

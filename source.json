@@ -1,0 +1,33 @@
+{
+  "name": "ico-scraper",
+  "version": "1.0.0",
+  "description": "list of ICO websites",
+  "sources": [
+    {
+      "name": "Token Market",
+      "url": "https://tokenmarket.net/blockchain/all-assets",
+      "anchor": "td.col-ico-logo",
+      "_comment": "anchor is being passed as $(this) to below elements via code",
+      "elements": {
+        "logoURLElement": "$(this).children().children().attr('data-cfsrc')",
+        "statusElement": "$(this).next().children().text()",
+        "nameElement": "$(this).next().next().children().children().text()",
+        "symbolElement": "$(this).next().next().next().text()",
+        "descriptionElement": "$(this).next().next().next().next().text()"
+      }
+    },
+    {
+      "name": "Token Market",
+      "url": "https://tokenmarket.net/blockchain/all-assets",
+      "anchor": "td.col-ico-logo",
+      "_comment": "anchor is being passed as $(this) to below elements via code",
+      "elements": {
+        "logoURLElement": "$(this).children().children().attr('data-cfsrc')",
+        "statusElement": "$(this).next().children().text()",
+        "nameElement": "$(this).next().next().children().children().text()",
+        "symbolElement": "$(this).next().next().next().text()",
+        "descriptionElement": "$(this).next().next().next().next().text()"
+      }
+    }
+  ]
+}
