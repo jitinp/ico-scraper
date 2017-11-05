@@ -17,9 +17,10 @@ module.exports = {
 
         // Read JSON file for Scraping List
         var lists = JSON.parse(fs.readFileSync('source.json', 'utf8'));
+
         console.log(lists); // List of Website and Elements
 
-        // fetch List of website
+        // fetch source URL of ICO Database
         var sources = lists.sources;
 
         sources.forEach(function(item) {
@@ -33,36 +34,86 @@ module.exports = {
                     var elements = item.elements;
 
                     // Fetch all elements associated with every Anchor element
+                    // This returns all occurrence of Anchor Element
+                    // Each Anchor Element returns unique URL of current ICOs
                     $(item.anchor).each(function(){
 
-                        var logoURL = eval(elements.logoURLElement); // Logo URL
-                        var status = eval(elements.statusElement); // Status
-                        var name = eval(elements.nameElement); // ICO Name
-                        var symbol = eval(elements.symbolElement); // ICO Symbol
-                        var description = eval(elements.descriptionElement); // ICO Description
-
-                        var metadata = {
-                            url: logoURL.trim(), // remove white spaces and escape chars
-                            name: name.trim(),
-                            status: status.trim(),
-                            symbol: symbol.trim(),
-                            description: description.trim(),
+                        // declare main json Structure
+                        var ico = {
+                            name: "",
+                            symbol: "",
+                            url: "",
+                            oneliner: "",
+                            dates: {
+                                openingDate: "",
+                                closingDate: ""
+                            },
+                            concept: "",
+                            team: "",
+                            whitepaper: "",
+                            github: "",
+                            links: {
+                                website: "",
+                                blog: "",
+                                twitter: "",
+                                facebook: "",
+                                linkedin: "",
+                                whitepaper: "",
+                                slack: "",
+                                telegram: "",
+                                youtube: ""
+                            }
                         };
 
-                        // Turn off display on Terminal if False
-                        if(isDisplayOnScreen != 'false')
-                            console.log(metadata);
+                        ico.name = eval(elements.name);
+                        ico.url = eval(elements.subPageURL);
 
-                        // Save Data to DB
+                        // Open every Link on the main Website
+                        request(ico.url, function (error, response, html) {
+                            if (!error && response.statusCode == 200) {
+                                var $ = cheerio.load(html);
 
-                        if(isStoreToDb == 'false')
-                            console.log('Don\'t store results in DB');
+                                ico.oneLiner = eval(elements.oneLiner);
 
-                        // Write Data to File
-                        // to be completed..
-                        if(isWriteToFile == 'true')
-                            console.log('Writing data to File');
+                                // Symbol
+                                ico.symbol = eval(elements.symbol);
 
+                                // Date
+                                ico.dates.openingDate = eval(elements.openingDate);
+                                ico.dates.closingDate = eval(elements.closingDate);
+                                ico.concept = eval(elements.concept);
+
+                                // White paper
+                                ico.whitepaper = eval(elements.whitepaper);
+
+                                // Links
+                                ico.links.website = eval(elements.website);
+                                ico.links.blog = eval(elements.blog);
+                                ico.links.facebook = eval(elements.facebook);
+                                ico.links.twitter = eval(elements.twitter);
+                                ico.links.linkedin = eval(elements.linkedin);
+                                ico.links.slack = eval(elements.slack);
+                                ico.links.telegram = eval(elements.telegram);
+                                ico.github = eval(elements.github);
+                                ico.links.youtube = eval(elements.youtube);
+
+                                // Team info
+                                ico.team = eval(elements.team);
+                            }
+
+                            // Turn off display on Terminal if False
+                            if(isDisplayOnScreen != 'false')
+                                console.log(ico);
+
+                            // Save Data to DB
+                            if(isStoreToDb == 'false')
+                                console.log('Don\'t store results in DB');
+
+                            // Write Data to File
+                            // to be completed..
+                            if(isWriteToFile == 'true')
+                                console.log('Writing data to File');
+                        });
                     });
                 }
             });

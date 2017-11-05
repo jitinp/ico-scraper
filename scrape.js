@@ -1,5 +1,4 @@
 // This app is a command line tool
-
 var scraper = require('./controller/scraper');
 
 // Process CMD Arguments

@@ -5,28 +5,30 @@
   "sources": [
     {
       "name": "Token Market",
-      "url": "https://tokenmarket.net/blockchain/all-assets",
+      "url": "https://tokenmarket.net/blockchain/all-assets?batch_size=10",
+      "paginationURL": "https://tokenmarket.net/blockchain/all-assets?batch_num=2&batch_size=20",
       "anchor": "td.col-ico-logo",
       "_comment": "anchor is being passed as $(this) to below elements via code",
       "elements": {
-        "logoURLElement": "$(this).children().children().attr('data-cfsrc')",
-        "statusElement": "$(this).next().children().text()",
-        "nameElement": "$(this).next().next().children().children().text()",
-        "symbolElement": "$(this).next().next().next().text()",
-        "descriptionElement": "$(this).next().next().next().next().text()"
-      }
-    },
-    {
-      "name": "Token Market",
-      "url": "https://tokenmarket.net/blockchain/all-assets",
-      "anchor": "td.col-ico-logo",
-      "_comment": "anchor is being passed as $(this) to below elements via code",
-      "elements": {
-        "logoURLElement": "$(this).children().children().attr('data-cfsrc')",
-        "statusElement": "$(this).next().children().text()",
-        "nameElement": "$(this).next().next().children().children().text()",
-        "symbolElement": "$(this).next().next().next().text()",
-        "descriptionElement": "$(this).next().next().next().next().text()"
+        "subPageRedirectRequired": true,
+        "name": "$(this).next().next().children().children().text().trim()",
+        "subPageURL": "$(this).next().next().children().children().attr('href')",
+        "oneLiner": "$('#asset-logo-wrapper').parent().next().text().trim()",
+        "symbol": "$('.fa.fa-list').parent().next().children().children().children().first().next().text()",
+        "openingDate": "$('.fa.fa-list').parent().next().children().children().next().children().first().next().children().first().text().trim()",
+        "closingDate": "$('.fa.fa-list').parent().next().children().children().next().next().children().first().next().children().first().text().trim()",
+        "concept": "$('.fa.fa-list').parent().next().children().children().next().next().next().children().first().next().children().first().text().trim()",
+        "website": "$('.fa.fa-share-alt').parent().next().children().children().first().children().children().attr('href')",
+        "blog": "$('.fa.fa-share-alt').parent().next().children().children().first().next().children().children().attr('href')",
+        "whitepaper": "$('.fa.fa-share-alt').parent().next().children().children().first().next().next().children().children().attr('href')",
+        "facebook": "$('.fa.fa-share-alt').parent().next().children().children().first().next().next().next().children().children().attr('href')",
+        "twitter": "$('.fa.fa-share-alt').parent().next().children().children().first().next().next().next().next().children().children().attr('href')",
+        "linkedin": "$('.fa.fa-share-alt').parent().next().children().children().first().next().next().next().next().next().children().children().attr('href')",
+        "slack": "$('.fa.fa-share-alt').parent().next().children().children().first().next().next().next().next().next().next().children().children().attr('href')",
+        "telegram": "$('.fa.fa-share-alt').parent().next().children().children().first().next().next().next().next().next().next().next().children().children().attr('href')",
+        "github": "$('.fa.fa-share-alt').parent().next().children().children().first().next().next().next().next().next().next().next().next().children().children().attr('href')",
+        "youtube": "$('.fa.fa-youtube').parent().attr('href')",
+        "team": "$('.fa.fa-group').parent().next().children().children().children().next().children().text().trim()"
       }
     }
   ]

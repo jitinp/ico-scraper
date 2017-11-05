@@ -35,7 +35,7 @@ module.exports = {
 			console.log(argv.n + " results to be displayed on screen: \n");
 		}
 
-        argActions.display = argv.display;
+		argActions.display = argv.display;
 		argActions.writeToDb = argv.db;
 		argActions.writeToFile = argv.file;
 
