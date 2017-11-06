@@ -5,7 +5,7 @@
   "sources": [
     {
       "name": "Token Market",
-      "url": "https://tokenmarket.net/blockchain/all-assets?batch_size=10",
+      "url": "https://tokenmarket.net/blockchain/all-assets?batch_size=482",
       "paginationURL": "https://tokenmarket.net/blockchain/all-assets?batch_num=2&batch_size=20",
       "anchor": "td.col-ico-logo",
       "_comment": "anchor is being passed as $(this) to below elements via code",

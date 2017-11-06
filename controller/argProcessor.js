@@ -10,7 +10,7 @@ module.exports = {
 						scrape: true, // determine if scraping required. Decline for Help & Versions
 						display: true, // maybe to just display results. To be decided later
 						writeToDb: true,
-						writeToFile: false,
+						writeToFile: null,
 					};
 
 		// -h is Help
@@ -37,10 +37,10 @@ module.exports = {
 
 		argActions.display = argv.display;
 		argActions.writeToDb = argv.db;
-		argActions.writeToFile = argv.file;
 
-		if(argv.f) {
-			console.log("saving results to " + argv.f);
+		if(argv.file) {
+            argActions.writeToFile = argv.file;
+            console.log(argActions.writeToFile);
 		}
 		return argActions;
 	}

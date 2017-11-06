@@ -1,6 +1,7 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var fs = require('fs');
+var printToFile = require('./printToFile');
 
 module.exports = {
 
@@ -110,9 +111,8 @@ module.exports = {
                                 console.log('Don\'t store results in DB');
 
                             // Write Data to File
-                            // to be completed..
-                            if(isWriteToFile == 'true')
-                                console.log('Writing data to File');
+                            if(isWriteToFile != null)
+                                printToFile.print(isWriteToFile, JSON.stringify(ico, null, "\t"));
                         });
                     });
                 }
