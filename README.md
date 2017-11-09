@@ -1,6 +1,8 @@
 # ico-scraper
 Scrape ICOs from listed websites
 
+This is part of Product Hunt Hackathon 2017 - https://www.producthunt.com/hackathon
+
 ## Instructions to Run & Install
 1. Clone Repo
 2. npm install
